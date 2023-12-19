@@ -2,13 +2,10 @@
 
 # Usage: docker-run.sh [stage]
 #
-# stage is the correspondig part in the CLI customization script
-# and script configuration files:
-# src/config/wildfly/customization/wildfly-config-<stage>.cli,
-# src/config/wildfly/customization/wildfly-config-<stage>.properties,
-# the default value is "default".
+# stage is the optional correspondig part in the CLI customization script and
+# script configuration files, see src/config/wildfly/customization/execute.sh
 
-STAGE=${1:-"default"}
+STAGE=$1
 
 mvn clean package
 docker build -t de.erik.lab/docker-webservice-lab \
