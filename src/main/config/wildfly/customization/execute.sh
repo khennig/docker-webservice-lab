@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Skript for executing WildFly configuration scripts inside a container, there
+# is no additional use case.
+#
 # Usage: execute.sh [stage]
 #
 # stage is the optional correspondig part in the CLI script wildfly-config-<stage>.cli
@@ -8,6 +11,7 @@
 # Thanks to: https://github.com/goldmann/wildfly-docker-configuration/
 
 STAGE=$1
+DIRNAME=$(dirname "$0")
 JBOSS_CLI=${JBOSS_HOME:?"Missing env var: JBOSS_HOME"}/bin/jboss-cli.sh
 JBOSS_MODE=standalone
 JBOSS_CONFIG=$JBOSS_MODE.xml
@@ -25,7 +29,7 @@ echo "Waiting for the server to boot ..."
 wait_for_server
 
 echo "Setup CLI and Properties ..."
-CUSTOM_PREFIX=$(dirname "$0")/wildfly-config
+CUSTOM_PREFIX=$DIRNAME/wildfly-config
 CUSTOM_SCRIPT=$CUSTOM_PREFIX-$STAGE.cli
 if [ ! -e "$CUSTOM_SCRIPT" ]; then
   CUSTOM_SCRIPT=$CUSTOM_PREFIX.cli

@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  db:
+    image: de.erik.lab/docker-db-lab
+    ports:
+      - "5432:5432"
+
+  app:
+    depends_on:
+      - db
+    build: .
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+      - "8787:8787"
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/mydatabase
+      DATABASE_USERNAME: myuser
+      DATABASE_PASSWORD: mypass

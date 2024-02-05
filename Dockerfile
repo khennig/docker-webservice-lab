@@ -4,7 +4,7 @@ RUN ${JBOSS_HOME}/bin/add-user.sh admin admin --silent
 CMD ${JBOSS_HOME}/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0 --debug *:8787
 
 ADD src/main/config/wildfly/customization ${JBOSS_HOME}/customization/
-# ADD src/main/config/wildfly/modules ${JBOSS_HOME}/modules/
+ADD src/main/config/wildfly/modules ${JBOSS_HOME}/modules/
 ARG STAGE
 RUN ${JBOSS_HOME}/customization/execute.sh $STAGE
 
