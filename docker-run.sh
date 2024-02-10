@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Qick starter for running your app out of the box inside a container. It
+# Quick starter for running your app out of the box inside a container. It
 # builds the app, builds the container image and runs it. Expecting the
 # needed database already running, startet somewhere else (maybe using the
 # database comming with the application server).
@@ -15,12 +15,13 @@
 # script configuration files, see src/config/wildfly/customization/execute.sh
 
 STAGE=$1
+CV_RUNTIME=docker
 
 mvn clean package
-docker build -t de.erik.lab/docker-webservice-lab \
+$CV_RUNTIME build -t de.erik.lab/docker-webservice-lab \
   --build-arg STAGE="$STAGE" .
-docker rm -f docker-webservice-lab || true
-docker run -d -p 8080:8080 -p 9990:9990 -p 8787:8787  \
+$CV_RUNTIME rm -f docker-webservice-lab || true
+$CV_RUNTIME run -d -p 8080:8080 -p 9990:9990 -p 8787:8787  \
   --name docker-webservice-lab \
   -e DATABASE_URL=jdbc:postgresql://kubernetes.docker.internal:5432/mydatabase \
   -e DATABASE_USERNAME=myuser \
