@@ -14,14 +14,14 @@
 # stage is the optional correspondig part in the CLI customization script and
 # script configuration files, see src/config/wildfly/customization/execute.sh
 
+CLI=docker
 STAGE=$1
-CV_RUNTIME=docker
 
 mvn clean package
-$CV_RUNTIME build -t de.erik.lab/docker-webservice-lab \
+$CLI build -t de.erik.lab/docker-webservice-lab \
   --build-arg STAGE="$STAGE" .
-$CV_RUNTIME rm -f docker-webservice-lab || true
-$CV_RUNTIME run -d -p 8080:8080 -p 9990:9990 -p 8787:8787  \
+$CLI rm -f docker-webservice-lab || true
+$CLI run -d -p 8080:8080 -p 9990:9990 -p 8787:8787  \
   --name docker-webservice-lab \
   -e DATABASE_URL=jdbc:postgresql://kubernetes.docker.internal:5432/mydatabase \
   -e DATABASE_USERNAME=myuser \
