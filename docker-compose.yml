@@ -19,6 +19,6 @@ services:
       - "9990:9990"
       - "8787:8787"
     environment:
-      DATABASE_URL: jdbc:postgresql://db:5432/mydatabase
-      DATABASE_USERNAME: myuser
-      DATABASE_PASSWORD: mypass
+      DATABASE_URL: jdbc:postgresql://db:5432/${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}

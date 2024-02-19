@@ -14,6 +14,7 @@
 # stage is the optional correspondig part in the CLI customization script and
 # script configuration files, see src/config/wildfly/customization/execute.sh
 
+source ./.env
 CLI=docker
 STAGE=$1
 
@@ -23,7 +24,7 @@ $CLI build -t de.erik.lab/docker-webservice-lab \
 $CLI rm -f docker-webservice-lab || true
 $CLI run -d -p 8080:8080 -p 9990:9990 -p 8787:8787  \
   --name docker-webservice-lab \
-  -e DATABASE_URL=jdbc:postgresql://kubernetes.docker.internal:5432/mydatabase \
-  -e DATABASE_USERNAME=myuser \
-  -e DATABASE_PASSWORD=mypass \
+  -e DATABASE_URL=jdbc:postgresql://kubernetes.docker.internal:5432/"$DATABASE_NAME" \
+  -e DATABASE_USERNAME="$DATABASE_USERNAME" \
+  -e DATABASE_PASSWORD="$DATABASE_PASSWORD" \
   de.erik.lab/docker-webservice-lab

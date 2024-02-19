@@ -1,0 +1,8 @@
+# Template file, rename it to .env and set all variables.
+# Acts as environment setting for *.sh, docker-compose.yml etc.
+# Do not commit the .env file to your SCM!
+
+# Database
+DATABASE_NAME=todo
+DATABASE_USERNAME=todo
+DATABASE_PASSWORD=todo
