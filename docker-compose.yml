@@ -5,10 +5,14 @@ services:
     image: de.erik.lab/docker-db-lab
     ports:
       - "5432:5432"
+    healthcheck:
+      test: pg_isready -d ${DATABASE_NAME} -U ${DATABASE_USERNAME}
+      interval: 5s
 
   app:
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     build: .
     ports:
       - "8080:8080"
