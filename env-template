@@ -4,5 +4,6 @@
 
 # Database
 DATABASE_NAME=todo
+DATABASE_URL=jdbc:postgresql://kubernetes.docker.internal:5432/$DATABASE_NAME
 DATABASE_USERNAME=todo
 DATABASE_PASSWORD=todo
