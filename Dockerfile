@@ -8,9 +8,18 @@ COPY --chown=jboss:jboss \
 	${JBOSS_HOME}/customization/
 COPY src/main/config/wildfly/modules \
 	${JBOSS_HOME}/modules/
-RUN chmod +x ${JBOSS_HOME}/customization/execute.sh
 
-ARG STAGE
-RUN ${JBOSS_HOME}/customization/execute.sh "$STAGE"
+# Configure WildFly in online mode, only recommended if offline mode is subject to restrictions
+# RUN chmod +x ${JBOSS_HOME}/customization/execute.sh
+# RUN ${JBOSS_HOME}/customization/execute.sh
+
+# Configure WildFly in offline (embedded server) mode, recommended
+RUN echo -e "embed-server\n\
+	$(cat ${JBOSS_HOME}/customization/wildfly-config.cli)\n\
+	stop-embedded-server" > \
+	${JBOSS_HOME}/customization/wildfly-config-embedded.cli && \
+	${JBOSS_HOME}/bin/jboss-cli.sh \
+	--file=${JBOSS_HOME}/customization/wildfly-config-embedded.cli \
+	--properties=${JBOSS_HOME}/customization/wildfly-config.properties
 
 COPY ./target/*.war ${JBOSS_DEPLOYMENTS}/ROOT.war

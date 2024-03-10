@@ -1,7 +1,12 @@
 #!/bin/sh
 
-# Skript for executing WildFly configuration scripts inside a container, there
-# is no additional use case.
+# To run a WildFly configuration script while building a WildFly container image.
+# When the script is called in a Dockerfile, WildFly is started, the configuration
+# script is executed against the running instance, then WildFly is terminated again.
+#
+# The shell script is an alternative to the recommended execution of the configuration
+# script with the WildFly embedded server mode, in case the offline mode for executing
+# the configuration script is subject to restrictions.
 #
 # Usage: execute.sh [stage]
 #
