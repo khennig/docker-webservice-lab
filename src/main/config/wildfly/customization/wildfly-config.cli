@@ -29,7 +29,7 @@ set databasePassword=${databasePassword}
 data-source add --name=dwsl --jndi-name=java:jboss/datasources/dwsl --enabled=true \
 	--driver-name=postgresql --connection-url=$databaseUrl \
 	--user-name=$databaseUsername --password=$databasePassword  \
-	--background-validation=true --background-validation-millis=1000 \
-	--check-valid-connection-sql="select 1"
+	--validate-on-match=true --background-validation=false \
+	--valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.novendor.JDBC4ValidConnectionChecker
 
 run-batch
